@@ -10,12 +10,14 @@ using namespace std;
 struct Photo {
   char ori;
   int id;
+  int connected = 0;
   vector<int> entries;
   int eLength;
 };
 
+vector<int> tagsconnection[1000000];
 map<string, int> mapIds;
-
+int amountTags =0;
 int main() {
   int n, count = 0;
   scanf("%d\n", &n);
@@ -29,13 +31,23 @@ int main() {
       if (cin >> tag) {
         if (mapIds.find(tag) == mapIds.end()) {
           mapIds[tag] = count++;
+          amountTags++;
         }
         p[i].entries[j] = mapIds[tag];
+        tagsconnection[mapIds[tag]].push_back(i);
       }
     }
   }
   for (int i = 0; i < n; i++) {
     cout << p[i].ori << " " << p[i].eLength << " " << p[i].id << "\n";
   }
-  
+
+  for (int i = 0; i<amountTags; i++){
+    for (int j = 0; j<tagsconnection[i].size; j++){
+      Photo[tagsconnection[i][j]].connected++;
+    }
+  }
+
+
+
 }
